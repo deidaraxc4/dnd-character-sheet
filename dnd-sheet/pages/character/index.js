@@ -1,17 +1,34 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 
 const Character = () => {
+    const [socket, setSocket] = useState(null);
+    const [messages, setMessages] = useState([]);
+    const [name, setName] = useState(''); // not sure wanna use input since im not actually submiting to a backend
+
     useEffect(() => {
         console.log("yoo")
         const socket = socketIOClient('localhost:3001');
+        setSocket(socket)
         socket.on('connect', (data) => {
             console.log('client connected successfully!')
         })
-    },[]);
+        socket.on('message',(msg) => {
+            setMessages( msgs => [...msgs, msg])
+        })
+    },[setSocket]);
+
+    const handleRoll = () => {
+        const randomNumber = Math.floor(Math.random() * 6) + 1;
+        socket.emit('message', `${name} rolled a ${randomNumber}!`)
+    }
+
+    const handleNameChange = (e) => {
+        setName(e.target.value)
+    }
 
     return (
         <div className={styles.container}>
@@ -23,11 +40,27 @@ const Character = () => {
 
             <main className={styles.charMain}>
                 <div className={styles.wrapper}>
-                    <div className={`${styles.box} ${styles.charName}`}>character name</div>
+                    <div className={`${styles.box} ${styles.charName}`}>
+                        character name
+                        <label>Name</label>
+                        <input type="text" id="name" name="name" onChange={handleNameChange} />
+                    </div>
                     <div className={`${styles.box} ${styles.charSaves}`}>character health/AC</div>
                     <div className={`${styles.box} ${styles.charHealth}`}>character saves</div>
-                    <div className={`${styles.box} ${styles.chatBox}`}>chat box</div>
-                    <div className={`${styles.box} ${styles.charActions}`}>character actions</div>
+                    <div className={`${styles.box} ${styles.chatBox}`}>
+                        chat box
+                        <ul>
+                            {messages.map((msg) => {
+                                return(
+                                    <li>{msg}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                    <div className={`${styles.box} ${styles.charActions}`}>
+                        character actions
+                        <button onClick={handleRoll}>click to roll</button>
+                    </div>
                 </div>
             </main>
 
