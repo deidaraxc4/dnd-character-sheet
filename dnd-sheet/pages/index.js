@@ -28,7 +28,7 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="group grow">
+        <div className="group grow border-l-2 border-black">
           <a className="grid grid-cols-1 hover:cursor-pointer group-hover:bg-sky-200">
             <Image src="/cooking-pot.svg" alt="5e Logo" width={72} height={80} className="group-hover:scale-125 transition ease-in-out duration-300"/>
             <h2 className="transition ease-in-out duration-300 text-center font-bold text-2xl group-hover:scale-125">
