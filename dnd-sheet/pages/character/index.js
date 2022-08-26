@@ -43,6 +43,7 @@ const Character = () => {
                 <button class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2">Save Changes</button>
                 <button class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2">Load</button>
                 <button class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2">Login</button>
+                <button class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2"><Link href="/">Home</Link></button>
             </div>
 
             <div class="mb-6">
