@@ -55,20 +55,55 @@ const Character = () => {
             <div id="TabArea">
                 <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-blue-700 dark:border-gray-700 dark:text-gray-400" id="toptabs" data-tabs-toggle="#tabContent" role="tablist">
                     <li className="mr-8" role="presentation">
-                        <button className="inline-block p-4 border-solid rounded-t-lg border-blue-500 border-t border-x hover:underline hover:border-blue-500" id="stats-tab" data-tabs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true">Stats &amp; Abilities</button>
+                        <button className="inline-block p-4 border-solid rounded-t-lg border-blue-700 border-t border-x hover:underline hover:border-blue-700" id="stats-tab" data-tabs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true">Stats &amp; Abilities</button>
                     </li>
                     <li className="mr-8" role="presentation">
-                        <button className="inline-block p-4 border-solid rounded-t-lg border-blue-500 border-t border-x hover:underline hover:border-blue-500" id="notes-tab" data-tabs-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">Notes, Personality, etc</button>
+                        <button className="inline-block p-4 border-solid rounded-t-lg border-blue-700 border-t border-x hover:underline hover:border-blue-700" id="notes-tab" data-tabs-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">Notes, Personality, etc</button>
                     </li>
                 </ul>
             </div>
 
             <div id="tabContent">
-                <div className="p-4" id="stats" role="tabpanel" aria-labelledby='stats-tab'>
-                    <p>stats stuff</p>
+                <div className="mt-4" id="stats" role="tabpanel" aria-labelledby='stats-tab'>
+                    <div className="grid grid-cols-3">
+                        {/* prob group these in a diff div more compactly */}
+                        <dl className="flex flex-row justify-start items-center mb-6">
+                            <dt>
+                                <label className="mb-2 text-sm font-medium text-gray-900">Class</label>
+                            </dt>
+                            <dd className="ml-8">
+                                <input type="text" id="dndclass" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                            </dd>
+                        </dl>
+                        <dl className="flex flex-row justify-start items-center mb-6">
+                            <dt>
+                                <label className="mb-2 text-sm font-medium text-gray-900">Race</label>
+                            </dt>
+                            <dd className="ml-8">
+                                <input type="text" id="dndrace" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                            </dd>
+                        </dl>
+                        <dl className="flex flex-row justify-start items-center mb-6">
+                            <dt>
+                                <label className="mb-2 text-sm font-medium text-gray-900">Background</label>
+                            </dt>
+                            <dd className="ml-8">
+                                <input type="text" id="dndbackground" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                            </dd>
+                        </dl>
+                        <dl className="flex flex-row justify-start items-center mb-6">
+                            <dt>
+                                <label className="mb-2 text-sm font-medium text-gray-900">Alignment</label>
+                            </dt>
+                            <dd className="ml-8">
+                                <input type="text" id="dndalignment" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                            </dd>
+                        </dl>
+
+                    </div>
                 </div>
 
-                <div className="p-4" id="notes" role="tabpanel" aria-labelledby='notes-tab'>
+                <div className="mt-4" id="notes" role="tabpanel" aria-labelledby='notes-tab'>
                     <p>notes stuff</p>
                 </div>
             </div>
