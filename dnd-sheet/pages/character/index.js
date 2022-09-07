@@ -65,40 +65,104 @@ const Character = () => {
 
             <div id="tabContent">
                 <div className="mt-4" id="stats" role="tabpanel" aria-labelledby='stats-tab'>
-                    <div className="grid grid-cols-3">
-                        {/* prob group these in a diff div more compactly */}
-                        <dl className="flex flex-row justify-start items-center mb-6">
-                            <dt>
-                                <label className="mb-2 text-sm font-medium text-gray-900">Class</label>
-                            </dt>
-                            <dd className="ml-8">
-                                <input type="text" id="dndclass" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
-                            </dd>
-                        </dl>
-                        <dl className="flex flex-row justify-start items-center mb-6">
-                            <dt>
-                                <label className="mb-2 text-sm font-medium text-gray-900">Race</label>
-                            </dt>
-                            <dd className="ml-8">
-                                <input type="text" id="dndrace" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
-                            </dd>
-                        </dl>
-                        <dl className="flex flex-row justify-start items-center mb-6">
-                            <dt>
-                                <label className="mb-2 text-sm font-medium text-gray-900">Background</label>
-                            </dt>
-                            <dd className="ml-8">
-                                <input type="text" id="dndbackground" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
-                            </dd>
-                        </dl>
-                        <dl className="flex flex-row justify-start items-center mb-6">
-                            <dt>
-                                <label className="mb-2 text-sm font-medium text-gray-900">Alignment</label>
-                            </dt>
-                            <dd className="ml-8">
-                                <input type="text" id="dndalignment" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
-                            </dd>
-                        </dl>
+                    <div className="grid grid-cols-3 gap-x-8 gap-y-8">
+
+                        <div className="col-span-3 col-end-auto">
+                            <div className="flex justify-start flex-wrap flex-row items-center">
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Class</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndclass" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Race</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndrace" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Background</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndbackground" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Alignment</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndalignment" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Level</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndlevel" size="1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Experience</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndexp" size="2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Speed</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndspeed" size="2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Initiative</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndinitiative" size="2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Armor Class</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndac" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Hit Points</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndhp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Temporary HP</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="text" id="dndtemphp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p>somesuff</p>
+                        </div>
 
                     </div>
                 </div>
