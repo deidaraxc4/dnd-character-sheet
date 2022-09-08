@@ -22,8 +22,8 @@ export default function Home() {
       <div className="flex flex-row flex-nowrap">
         <div className="group grow basis-0">
           <div className="group-hover:bg-sky-200">
-            <a href="/character" className="flex flex-col p-9 hover:cursor-pointer">
-              <img src="/5elogo.svg" alt="5e Logo" className="justify-center object-contain h-36 group-hover:scale-125 transition ease-in-out duration-500 mb-2"/>
+            <a href="character" className="flex flex-col p-9 hover:cursor-pointer">
+              <img src="5elogo.svg" alt="5e Logo" className="justify-center object-contain h-36 group-hover:scale-125 transition ease-in-out duration-500 mb-2"/>
               <h2 className="my-2 transition ease-in-out duration-500 text-center font-bold text-2xl group-hover:scale-125">
                 5e Online Character Sheet
               </h2>
@@ -37,7 +37,7 @@ export default function Home() {
         <div className="group grow basis-0 border-l-2 border-black">
           <div className="group-hover:bg-sky-200">
             <a className="flex flex-col p-9 hover:cursor-pointer">
-              <img src="/cauldron.svg" alt="5e Logo" className="justify-center object-contain h-36 group-hover:scale-125 transition ease-in-out duration-500 mb-2"/>
+              <img src="cauldron.svg" alt="5e Logo" className="justify-center object-contain h-36 group-hover:scale-125 transition ease-in-out duration-500 mb-2"/>
               <h2 className="my-2 transition ease-in-out duration-500 text-center font-bold text-2xl group-hover:scale-125">
                 Homebrew Character Sheet
               </h2>
