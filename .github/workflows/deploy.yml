@@ -16,6 +16,9 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
 
+    env:
+      NEXT_PUBLIC_BASE_PATH: /dnd-character-sheet
+
     steps:
       - uses: actions/checkout@v3
 
@@ -33,6 +36,7 @@ jobs:
         run: |
           pwd
           ls
+          ls out
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
