@@ -3,7 +3,7 @@ import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import socketIOClient from 'socket.io-client'
-import { rollDice } from '../util/roll'
+import { rollDice } from '../../util/roll'
 
 const Character = () => {
     const [socket, setSocket] = useState(null);
