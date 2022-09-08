@@ -19,16 +19,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: debug
-        run: |
-          ls
-          pwd
-
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
-          cache: "npm"
 
       - name: Build
         run: |
