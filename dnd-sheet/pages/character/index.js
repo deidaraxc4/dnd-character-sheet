@@ -251,8 +251,45 @@ const Character = () => {
                             </div>
                         </div>
 
+                        {/* dice roll regex https://regexr.com/3d70r */}
+                        {/* https://www.npmjs.com/package/dice-notation-js */}
                         <div id="weaponAttacks" className="col-span-2 col-start-2 border-solid rounded-md border-gray-600 border p-2">
-                            <p>somesuff</p>
+                            <h2 className="text-base font-bold mb-4">Weapons &amp; Attacks</h2>
+                            <div className="grid grid-cols-6 gap-2">
+                                <p className="font-bold">Name</p>
+                                <p className="font-bold">Att Bonus</p>
+                                <p className="font-bold">Damage</p>
+                                <p className="font-bold">Type/Notes</p>
+                                <p className="font-bold">Roll</p>
+                                <p></p>
+
+                                {/* should be dynamically generated */}
+                                <input className="text-xs px-2 py-1" />
+                                <input type="number" className="text-xs px-2 py-1" min={-10} max={10} />
+                                <input pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1" />
+                                <input className="text-xs px-2 py-1" />
+                                <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                <span />
+                            </div>
+                            <button className="rounded-md border border-solid border-gray-600 p-1">New att</button>
+                            {/* <table className="table-auto">
+                                <thead className="w-full text-center">
+                                    <tr className="w-full">
+                                        <th className="p-1">Name</th>
+                                        <th className="p-1">Att Bonus</th>
+                                        <th className="p-1">Damage</th>
+                                        <th className="p-1">Type/Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <input className="text-xs px-2 py-1" />
+                                        <input className="text-xs px-2 py-1" />
+                                        <input className="text-xs px-2 py-1" />
+                                        <input className="text-xs px-2 py-1" />
+                                    </tr>
+                                </tbody>
+                            </table> */}
                         </div>
 
                         <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-2">
