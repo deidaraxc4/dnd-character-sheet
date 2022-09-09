@@ -169,54 +169,85 @@ const Character = () => {
                         </div>
 
                         <div id="skillsAttributes" className="col-span-1 border-solid rounded-md border-gray-600 border p-2">
-                            <h2 className="text-base font-bold">Attributes</h2>
+                            <h2 className="text-base font-bold mb-4">Attributes</h2>
                             <div>
-                                <div>
-                                    <label>Str</label>
-                                    <input type="number" max={20} min={3} className="text-xs" />
-                                    <span>0</span>
-                                    <input type="checkbox" />
-                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                {/* this will be a for loop attribute rendering state */}
+                                <div className="mb-2">
+                                    <label className="mr-6 text-sm font-bold">Str</label>
+                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
+                                    <span className="mr-4">0</span>
+                                    <input type="checkbox" className="mr-4 rounded-sm" />
+                                    <label className="mr-4 text-sm font-bold">Save</label>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                 </div>
-                                <div>
-                                    <label>Dex</label>
-                                    <input type="number" max={20} min={3} className="text-xs" />
-                                    <span>0</span>
-                                    <input type="checkbox" />
-                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                <div className="mb-2">
+                                    <label className="mr-4 text-sm font-bold">Dex</label>
+                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
+                                    <span className="mr-4">0</span>
+                                    <input type="checkbox" className="mr-4 rounded-sm" />
+                                    <label className="mr-4 text-sm font-bold">Save</label>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                 </div>
-                                <div>
-                                    <label>Con</label>
-                                    <input type="number" max={20} min={3} className="text-xs" />
-                                    <span>0</span>
-                                    <input type="checkbox" />
-                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                <div className="mb-2">
+                                    <label className="mr-4 text-sm font-bold">Con</label>
+                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
+                                    <span className="mr-4">0</span>
+                                    <input type="checkbox" className="mr-4 rounded-sm" />
+                                    <label className="mr-4 text-sm font-bold">Save</label>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                 </div>
-                                <div>
-                                    <label>Int</label>
-                                    <input type="number" max={20} min={3} className="text-xs" />
-                                    <span>0</span>
-                                    <input type="checkbox" />
-                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                <div className="mb-2">
+                                    <label className="mr-6 text-sm font-bold">Int</label>
+                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
+                                    <span className="mr-4">0</span>
+                                    <input type="checkbox" className="mr-4 rounded-sm" />
+                                    <label className="mr-4 text-sm font-bold">Save</label>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                 </div>
-                                <div>
-                                    <label>Wis</label>
-                                    <input type="number" max={20} min={3} className="text-xs" />
-                                    <span>0</span>
-                                    <input type="checkbox" />
-                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                <div className="mb-2">
+                                    <label className="mr-4 text-sm font-bold">Wis</label>
+                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
+                                    <span className="mr-4">0</span>
+                                    <input type="checkbox" className="mr-4 rounded-sm" />
+                                    <label className="mr-4 text-sm font-bold">Save</label>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                 </div>
-                                <div>
-                                    <label>Cha</label>
-                                    <input type="number" max={20} min={3} className="text-xs" />
-                                    <span>0</span>
-                                    <input type="checkbox" />
-                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                <div className="mb-2">
+                                    <label className="mr-4 text-sm font-bold">Cha</label>
+                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
+                                    <span className="mr-4">0</span>
+                                    <input type="checkbox" className="mr-4 rounded-sm" />
+                                    <label className="mr-4 text-sm font-bold">Save</label>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                 </div>
                             </div>
-                            <h2 className="text-base font-bold">Skills</h2>
+                            <h2 className="text-base font-bold mb-4 mt-4">Skills</h2>
                             <div>
-
+                                {/* this will be a for loop on the skill rendering */}
+                                <div className="mb-2">
+                                    <label>
+                                        <input type="checkbox" className="mr-4 rounded-sm text-sm" />
+                                        <input type="checkbox" className="mr-4 rounded-sm text-sm text-gray-400" disabled={true} />
+                                    </label>
+                                    <span className="mr-4 text-sm">Acrobatics (Dex)</span>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                </div>
+                                <div className="mb-2">
+                                    <label>
+                                        <input type="checkbox" className="mr-4 rounded-sm text-sm" />
+                                        <input type="checkbox" className="mr-4 rounded-sm text-sm text-gray-400" disabled={true} />
+                                    </label>
+                                    <span className="mr-4 text-sm">Animal Handling (Wis)</span>
+                                    <span className="mr-4">0</span>
+                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                </div>
                             </div>
                         </div>
 
