@@ -67,7 +67,7 @@ const Character = () => {
                 <div className="mt-4" id="stats" role="tabpanel" aria-labelledby='stats-tab'>
                     <div className="grid grid-cols-3 gap-x-8 gap-y-8">
 
-                        <div className="col-span-3 col-end-auto">
+                        <div id="basicInfo" className="col-span-3 col-end-auto">
                             <div className="flex justify-start flex-wrap flex-row items-center">
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
                                 <dt>
@@ -157,11 +157,75 @@ const Character = () => {
                                     <input type="text" id="dndtemphp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Proficiency Bonus</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    +0
+                                </dd>
+                            </dl>
                             </div>
                         </div>
 
-                        <div>
+                        <div id="skillsAttributes" className="col-span-1 border-solid rounded-md border-gray-600 border p-2">
+                            <h2 className="text-base font-bold">Attributes</h2>
+                            <div>
+                                <div>
+                                    <label>Str</label>
+                                    <input type="number" max={20} min={3} className="text-xs" />
+                                    <span>0</span>
+                                    <input type="checkbox" />
+                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                </div>
+                                <div>
+                                    <label>Dex</label>
+                                    <input type="number" max={20} min={3} className="text-xs" />
+                                    <span>0</span>
+                                    <input type="checkbox" />
+                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                </div>
+                                <div>
+                                    <label>Con</label>
+                                    <input type="number" max={20} min={3} className="text-xs" />
+                                    <span>0</span>
+                                    <input type="checkbox" />
+                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                </div>
+                                <div>
+                                    <label>Int</label>
+                                    <input type="number" max={20} min={3} className="text-xs" />
+                                    <span>0</span>
+                                    <input type="checkbox" />
+                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                </div>
+                                <div>
+                                    <label>Wis</label>
+                                    <input type="number" max={20} min={3} className="text-xs" />
+                                    <span>0</span>
+                                    <input type="checkbox" />
+                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                </div>
+                                <div>
+                                    <label>Cha</label>
+                                    <input type="number" max={20} min={3} className="text-xs" />
+                                    <span>0</span>
+                                    <input type="checkbox" />
+                                    <input type="image" src="d20-32px.svg" className="inline-block object-contain h-5" />
+                                </div>
+                            </div>
+                            <h2 className="text-base font-bold">Skills</h2>
+                            <div>
+
+                            </div>
+                        </div>
+
+                        <div id="weaponAttacks" className="col-span-2 col-start-2 border-solid rounded-md border-gray-600 border p-2">
                             <p>somesuff</p>
+                        </div>
+
+                        <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-2">
+                            <p>extra</p>
                         </div>
 
                     </div>
