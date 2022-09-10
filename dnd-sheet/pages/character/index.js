@@ -4,11 +4,14 @@ import styles from '../../styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import { rollDice } from '../../util/roll'
+import { CharacterModel } from '../../util/characterModel'
+import { getCharacter, getCharacterNames, saveCharacter } from '../../util/storage'
 
 const Character = () => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [name, setName] = useState(''); // not sure wanna use input since im not actually submiting to a backend
+    const [characterModel, setCharacterModel] = useState({class: "foo"});
 
     useEffect(() => {
         console.log("yoo")
@@ -27,8 +30,14 @@ const Character = () => {
         socket.emit('message', `${name} rolled a ${randomNumber}!`)
     }
 
-    const handleNameChange = (e) => {
-        setName(e.target.value)
+    // curry function
+    const handleChange = prop => (e) => {
+        let updatedVal = {}
+        updatedVal[prop] = e.target.value
+        setCharacterModel(model => ({
+            ...characterModel,
+            ...updatedVal
+        }))
     }
 
     return (
@@ -45,6 +54,7 @@ const Character = () => {
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2" data-modal-toggle="loginModal">Login</button>
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2"><a href="./">Home</a></button>
             </div>
+            {JSON.stringify(characterModel)}
 
             <div id="loginModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -70,12 +80,12 @@ const Character = () => {
                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Login Integration
+                                Load Character
                             </h3>
                         </div>
                         <div class="p-6 space-y-6">
                             <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                Discord
+                                Character
                             </p>
                         </div>
                         <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
@@ -113,7 +123,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Class</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndclass" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndclass" value={characterModel.class} onChange={handleChange("class")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -121,7 +131,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Race</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndrace" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndrace" value={characterModel.race} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -129,7 +139,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Background</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndbackground" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndbackground" value={characterModel.background} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -137,7 +147,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Alignment</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndalignment" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndalignment" value={characterModel.alignment} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -145,7 +155,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Level</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndlevel" size="1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndlevel" size="1" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -153,7 +163,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Experience</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndexp" size="2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndexp" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -161,7 +171,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Speed</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndspeed" size="2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndspeed" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -169,7 +179,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Initiative</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndinitiative" size="2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndinitiative" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -177,7 +187,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Armor Class</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndac" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndac" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -185,7 +195,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Hit Points</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndhp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndhp" size="4" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -193,7 +203,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Temporary HP</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndtemphp" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndtemphp" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -303,32 +313,14 @@ const Character = () => {
                                 <p></p>
 
                                 {/* should be dynamically generated */}
-                                <input className="text-xs px-2 py-1" />
+                                <input className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                 <input type="number" className="text-xs px-2 py-1" min={-10} max={10} />
-                                <input pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1" />
-                                <input className="text-xs px-2 py-1" />
+                                <input pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                <input className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                 <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                 <span />
                             </div>
-                            <button className="rounded-md border border-solid border-gray-600 p-1">New att</button>
-                            {/* <table className="table-auto">
-                                <thead className="w-full text-center">
-                                    <tr className="w-full">
-                                        <th className="p-1">Name</th>
-                                        <th className="p-1">Att Bonus</th>
-                                        <th className="p-1">Damage</th>
-                                        <th className="p-1">Type/Notes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <input className="text-xs px-2 py-1" />
-                                        <input className="text-xs px-2 py-1" />
-                                        <input className="text-xs px-2 py-1" />
-                                        <input className="text-xs px-2 py-1" />
-                                    </tr>
-                                </tbody>
-                            </table> */}
+                            <button className="rounded-md border border-solid border-gray-600 p-1 mt-2">New att</button>
                         </div>
 
                         <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-2">
@@ -345,47 +337,6 @@ const Character = () => {
 
             <script src="https://unpkg.com/flowbite@1.5.2/dist/flowbite.js"></script>
         </div>
-
-
-        // <div className={styles.container}>
-        //     <Head>
-        //         <title>DnD Character Sheet</title>
-        //         <meta name="Customized dnd character sheet" content="Generated by create next app" />
-        //         <link rel="icon" href="/favicon.ico" />
-        //     </Head>
-
-        //     <main className={styles.charMain}>
-        //         <div className={styles.wrapper}>
-        //             <div className={`${styles.box} ${styles.charName}`}>
-        //                 character name
-        //                 <label>Name</label>
-        //                 <input type="text" id="name" name="name" onChange={handleNameChange} />
-        //             </div>
-        //             <div className={`${styles.box} ${styles.charSaves}`}>character health/AC</div>
-        //             <div className={`${styles.box} ${styles.charHealth}`}>character saves</div>
-        //             <div className={`${styles.box} ${styles.chatBox}`}>
-        //                 chat box
-        //                 <ul>
-        //                     {messages.map((msg) => {
-        //                         return(
-        //                             <li>{msg}</li>
-        //                         )
-        //                     })}
-        //                 </ul>
-        //             </div>
-        //             <div className={`${styles.box} ${styles.charActions}`}>
-        //                 character actions
-        //                 <button onClick={handleRoll}>click to roll</button>
-        //             </div>
-        //         </div>
-        //     </main>
-
-        //     <footer>
-        //         <Link href="/">
-        //             <a>go home</a>
-        //         </Link>
-        //     </footer>
-        // </div>
     );
 }
 
