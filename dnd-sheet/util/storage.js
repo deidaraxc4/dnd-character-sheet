@@ -1,5 +1,5 @@
-const getCharacter = () => {
-    return JSON.parse(localStorage.getItem("dndCharacter"))
+const getCharacter = (name) => {
+    return JSON.parse(localStorage.getItem(name))
 }
 
 const saveCharacter = (name, char) => {

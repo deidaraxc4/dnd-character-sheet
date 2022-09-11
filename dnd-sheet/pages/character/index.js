@@ -10,25 +10,25 @@ import { getCharacter, getCharacterNames, saveCharacter } from '../../util/stora
 const Character = () => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
-    const [name, setName] = useState(''); // not sure wanna use input since im not actually submiting to a backend
-    const [characterModel, setCharacterModel] = useState({class: "foo"});
+    const [characterModel, setCharacterModel] = useState(new CharacterModel());
+    const [listsaves, setListsaves] = useState([]);
 
-    useEffect(() => {
-        console.log("yoo")
-        const socket = socketIOClient('localhost:3001');
-        setSocket(socket)
-        socket.on('connect', (data) => {
-            console.log('client connected successfully!')
-        })
-        socket.on('message',(msg) => {
-            setMessages( msgs => [...msgs, msg])
-        })
-    },[setSocket]);
+    // useEffect(() => {
+    //     console.log("yoo")
+    //     const socket = socketIOClient('localhost:3001');
+    //     setSocket(socket)
+    //     socket.on('connect', (data) => {
+    //         console.log('client connected successfully!')
+    //     })
+    //     socket.on('message',(msg) => {
+    //         setMessages( msgs => [...msgs, msg])
+    //     })
+    // },[setSocket]);
 
-    const handleRoll = () => {
-        const randomNumber = Math.floor(Math.random() * 6) + 1;
-        socket.emit('message', `${name} rolled a ${randomNumber}!`)
-    }
+    // const handleRoll = () => {
+    //     const randomNumber = Math.floor(Math.random() * 6) + 1;
+    //     socket.emit('message', `${name} rolled a ${randomNumber}!`)
+    // }
 
     // curry function
     const handleChange = prop => (e) => {
@@ -40,6 +40,25 @@ const Character = () => {
         }))
     }
 
+    const handleSave = () => {
+        if (characterModel.name) {
+            saveCharacter(characterModel.name, characterModel)
+            alert(`${characterModel.name} character saved!`)
+        }
+    }
+
+    const handleLoad = () => {
+        const res = getCharacterNames();
+        setListsaves(res);
+    }
+
+    const handleLoadCharacter = (e) => {
+        const id = e.target.getAttribute("id");
+        const character = getCharacter(id);
+        setCharacterModel(character);
+        alert(`Character ${id} loaded!`);
+    }
+
     return (
         <div className="container mx-auto mt-4 max-w-7xl">
             <Head>
@@ -49,47 +68,49 @@ const Character = () => {
             </Head>
 
             <div id="actionBar" className="flex flex-row flex-nowrap justify-start">
-                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2">Save Changes</button>
-                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2" data-modal-toggle="loadModal">Load</button>
-                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2" data-modal-toggle="loginModal">Login</button>
-                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 mr-2 mb-2"><a href="./">Home</a></button>
+                <button onClick={handleSave} className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2">Save</button>
+                <button onClick={handleLoad} className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="loadModal" id="loadCharacterBtn">Load</button>
+                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="loginModal">Login</button>
+                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2"><a href="./">Home</a></button>
             </div>
             {JSON.stringify(characterModel)}
 
-            <div id="loginModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-                <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            <div id="loginModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
+                    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                                 Login Integration
                             </h3>
                         </div>
-                        <div class="p-6 space-y-6">
-                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        <div className="p-6 space-y-6">
+                            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                 Discord
                             </p>
                         </div>
-                        <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                            <button data-modal-toggle="loginModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
+                        <div className="flex flex-row-reverse items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                            <button data-modal-toggle="loginModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="loadModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-                <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            <div id="loadModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
+                    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                                 Load Character
                             </h3>
                         </div>
-                        <div class="p-6 space-y-6">
-                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                Character
-                            </p>
+                        <div className="p-6 space-y-6">
+                            {listsaves.map((save) => {
+                                return(
+                                    <li onClick={handleLoadCharacter} key={save} id={save} className="cursor-pointer underline text-blue-600">{save}</li>
+                                )
+                            })}
                         </div>
-                        <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                            <button data-modal-toggle="loadModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
+                        <div className="flex flex-row-reverse items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                            <button data-modal-toggle="loadModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
                         </div>
                     </div>
                 </div>
@@ -97,7 +118,7 @@ const Character = () => {
 
             <div className="mb-6">
                 <label id="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Character Name</label>
-                <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-lg font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Character Name" />
+                <input type="text" id="default-input" value={characterModel.name} onChange={handleChange("name")} className="bg-gray-50 border border-gray-300 text-gray-900 text-lg font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Character Name" />
             </div>
 
 
@@ -131,7 +152,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Race</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndrace" value={characterModel.race} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndrace" value={characterModel.race} onChange={handleChange("race")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -139,7 +160,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Background</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndbackground" value={characterModel.background} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndbackground" value={characterModel.background} onChange={handleChange("background")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -147,7 +168,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Alignment</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndalignment" value={characterModel.alignment} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndalignment" value={characterModel.alignment} onChange={handleChange("alignment")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -155,7 +176,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Level</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndlevel" size="1" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndlevel" size="1" value={characterModel.level} onChange={handleChange("level")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -163,7 +184,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Experience</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndexp" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndexp" size="2" value={characterModel.experience} onChange={handleChange("experience")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -171,7 +192,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Speed</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndspeed" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndspeed" size="2" value={characterModel.speed} onChange={handleChange("speed")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -179,7 +200,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Initiative</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndinitiative" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndinitiative" size="2" value={characterModel.initiative} onChange={handleChange("initiative")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -187,7 +208,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Armor Class</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndac" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndac" size="2" value={characterModel.armorclass} onChange={handleChange("armorclass")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -195,7 +216,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Hit Points</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndhp" size="4" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndhp" size="4" value={characterModel.hp} onChange={handleChange("hp")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -203,7 +224,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Temporary HP</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndtemphp" size="2" className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="text" id="dndtemphp" size="2" value={characterModel.temphp} onChange={handleChange("temphp")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
