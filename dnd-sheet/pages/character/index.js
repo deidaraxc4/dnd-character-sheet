@@ -49,6 +49,32 @@ const Character = () => {
         }))
     }
 
+    const handleAttrChange = attr => (e) => {
+        const currAttributes = characterModel.attributes;
+        const index = currAttributes.findIndex(element => element.name === attr);
+        currAttributes[index] = {
+            ...currAttributes[index],
+            score: Number(e.target.value)
+        }
+        setCharacterModel(model => ({
+            ...characterModel,
+            attributes: currAttributes
+        }))
+    }
+
+    const handleAttrProficient = attr => (e) => {
+        const currAttributes = characterModel.attributes;
+        const index = currAttributes.findIndex(element => element.name === attr);
+        currAttributes[index] = {
+            ...currAttributes[index],
+            proficient: Boolean(e.target.checked)
+        }
+        setCharacterModel(model => ({
+            ...characterModel,
+            attributes: currAttributes
+        }))
+    }
+
     const handleSave = () => {
         if (characterModel.name) {
             saveCharacter(characterModel.name, characterModel)
@@ -249,7 +275,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Proficiency Bonus</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    +0
+                                    {"+"+Math.ceil(1+(characterModel.level / 4))}
                                 </dd>
                             </dl>
                             </div>
@@ -258,61 +284,19 @@ const Character = () => {
                         <div id="skillsAttributes" className="col-span-1 border-solid rounded-md border-gray-600 border p-2">
                             <h2 className="text-base font-bold mb-4">Attributes</h2>
                             <div>
-                                {/* this will be a for loop attribute rendering state */}
-                                <div className="mb-2">
-                                    <label className="mr-6 text-sm font-bold">Str</label>
-                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
-                                    <span className="mr-4">0</span>
-                                    <input type="checkbox" className="mr-4 rounded-sm" />
-                                    <label className="mr-4 text-sm font-bold">Save</label>
-                                    <span className="mr-4">0</span>
-                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="mr-4 text-sm font-bold">Dex</label>
-                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
-                                    <span className="mr-4">0</span>
-                                    <input type="checkbox" className="mr-4 rounded-sm" />
-                                    <label className="mr-4 text-sm font-bold">Save</label>
-                                    <span className="mr-4">0</span>
-                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="mr-4 text-sm font-bold">Con</label>
-                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
-                                    <span className="mr-4">0</span>
-                                    <input type="checkbox" className="mr-4 rounded-sm" />
-                                    <label className="mr-4 text-sm font-bold">Save</label>
-                                    <span className="mr-4">0</span>
-                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="mr-6 text-sm font-bold">Int</label>
-                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
-                                    <span className="mr-4">0</span>
-                                    <input type="checkbox" className="mr-4 rounded-sm" />
-                                    <label className="mr-4 text-sm font-bold">Save</label>
-                                    <span className="mr-4">0</span>
-                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="mr-4 text-sm font-bold">Wis</label>
-                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
-                                    <span className="mr-4">0</span>
-                                    <input type="checkbox" className="mr-4 rounded-sm" />
-                                    <label className="mr-4 text-sm font-bold">Save</label>
-                                    <span className="mr-4">0</span>
-                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                </div>
-                                <div className="mb-2">
-                                    <label className="mr-4 text-sm font-bold">Cha</label>
-                                    <input type="number" max={20} min={3} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
-                                    <span className="mr-4">0</span>
-                                    <input type="checkbox" className="mr-4 rounded-sm" />
-                                    <label className="mr-4 text-sm font-bold">Save</label>
-                                    <span className="mr-4">0</span>
-                                    <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                </div>
+                                {characterModel.attributes.map((attr) => {
+                                    return(
+                                        <div key={attr.name} className="mb-2">
+                                            <label className="mr-6 text-sm font-bold">{attr.name}</label>
+                                            <input type="number" max={25} min={1} value={attr.score} onChange={handleAttrChange(attr.name)} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
+                                            <span className="mr-4 font-bold">{Math.floor((attr.score - 10) / 2)}</span>
+                                            <input type="checkbox" value={attr.proficient} onChange={handleAttrProficient(attr.name)} className="mr-4 rounded-sm" />
+                                            <label className="mr-4 text-sm font-bold">Save</label>
+                                            <span className="mr-4">{attr.proficient ? Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
+                                            <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                        </div>
+                                    );
+                                })}
                             </div>
                             <h2 className="text-base font-bold mb-4 mt-4">Skills</h2>
                             <div>

@@ -18,5 +18,12 @@ export const Default5eChar = {
     hp: "",
     temphp: "",
     inspiration: false,
-    
+    attributes: [
+        {name: "Str", proficient: false, score: 10 },
+        {name: "Dex", proficient: false, score: 10 },
+        {name: "Con", proficient: false, score: 10 },
+        {name: "Int", proficient: false, score: 10 },
+        {name: "Wis", proficient: false, score: 10 },
+        {name: "Cha", proficient: false, score: 10 }
+    ]
 }
