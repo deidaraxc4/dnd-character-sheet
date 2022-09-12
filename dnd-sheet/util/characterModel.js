@@ -19,7 +19,10 @@ export const Default5eChar = {
     temphp: "",
     inspiration: false,
     attributes: [
-        {name: "Str", proficient: false, score: 10 },
+        {name: "Str", proficient: false, score: 10,
+        skills: [
+            {name: "Athletics (Str)", proficient: false, doubleproficient: false}
+        ] },
         {name: "Dex", proficient: false, score: 10 },
         {name: "Con", proficient: false, score: 10 },
         {name: "Int", proficient: false, score: 10 },

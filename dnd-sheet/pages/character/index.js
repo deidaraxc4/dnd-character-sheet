@@ -94,6 +94,14 @@ const Character = () => {
         alert(`Character ${id} loaded!`);
     }
 
+    const createSkills = () => {
+        characterModel.attributes.map((attr) => {
+            // iterate over the skills of this attr?
+            // build new list of skills with a score val based on prof bonuses plus the attr.score
+            // then sort that new list alphabetically
+        })
+    }
+
     return (
         <div className="container mx-auto mt-4 max-w-7xl">
             <Head>
@@ -303,6 +311,7 @@ const Character = () => {
                                 {/* this will be a for loop on the skill rendering */}
                                 <div className="mb-2">
                                     <label>
+                                        {/* first checkbox in the handleclick event also ENABLE/disable the 2nd checkbox */}
                                         <input type="checkbox" className="mr-4 rounded-sm text-sm" />
                                         <input type="checkbox" className="mr-4 rounded-sm text-sm text-gray-400" disabled={true} />
                                     </label>
