@@ -4,13 +4,13 @@ import styles from '../../styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import { rollDice } from '../../util/roll'
-import { CharacterModel } from '../../util/characterModel'
+import { CharacterModel, Default5eChar } from '../../util/characterModel'
 import { getCharacter, getCharacterNames, saveCharacter } from '../../util/storage'
 
 const Character = () => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
-    const [characterModel, setCharacterModel] = useState(new CharacterModel());
+    const [characterModel, setCharacterModel] = useState(new CharacterModel(Default5eChar));
     const [listsaves, setListsaves] = useState([]);
 
     // useEffect(() => {
@@ -32,6 +32,15 @@ const Character = () => {
 
     // curry function
     const handleChange = prop => (e) => {
+        if (prop === "inspiration") {
+            let updatedVal = {}
+            updatedVal[prop] = e.target.checked
+            setCharacterModel(model => ({
+                ...characterModel,
+                ...updatedVal
+            }))
+            return;
+        }
         let updatedVal = {}
         updatedVal[prop] = e.target.value
         setCharacterModel(model => ({
@@ -176,7 +185,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Level</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="text" id="dndlevel" size="1" value={characterModel.level} onChange={handleChange("level")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="number" id="dndlevel" size="1" min={1} max={20} value={characterModel.level} onChange={handleChange("level")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -225,6 +234,14 @@ const Character = () => {
                                 </dt>
                                 <dd className="ml-8">
                                     <input type="text" id="dndtemphp" size="2" value={characterModel.temphp} onChange={handleChange("temphp")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                </dd>
+                            </dl>
+                            <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                <dt>
+                                    <label className="mb-2 text-sm font-medium text-gray-900">Inspiration</label>
+                                </dt>
+                                <dd className="ml-8">
+                                    <input type="checkbox" id="dndinspiration" size="2" value={characterModel.inspiration} onChange={handleChange("inspiration")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
