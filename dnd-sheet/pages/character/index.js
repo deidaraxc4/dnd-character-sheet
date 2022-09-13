@@ -75,6 +75,32 @@ const Character = () => {
         }))
     }
 
+    const handleSkillChange = skill => (e) => {
+        const skills = characterModel.skills;
+        const index = skills.findIndex(element => element.name === skill);
+        skills[index] = {
+            ...skills[index],
+            proficient: Boolean(e.target.checked)
+        }
+        setCharacterModel(model => ({
+            ...characterModel,
+            skills: skills
+        }))
+    }
+
+    const handleSkillDPChange = skill => (e) => {
+        const skills = characterModel.skills;
+        const index = skills.findIndex(element => element.name === skill);
+        skills[index] = {
+            ...skills[index],
+            doubleproficient: Boolean(e.target.checked)
+        }
+        setCharacterModel(model => ({
+            ...characterModel,
+            skills: skills
+        }))
+    }
+
     const handleSave = () => {
         if (characterModel.name) {
             saveCharacter(characterModel.name, characterModel)
@@ -95,11 +121,26 @@ const Character = () => {
     }
 
     const createSkills = () => {
-        characterModel.attributes.map((attr) => {
-            // iterate over the skills of this attr?
-            // build new list of skills with a score val based on prof bonuses plus the attr.score
-            // then sort that new list alphabetically
+        // iterate over the skills of this attr?
+        // build new list of skills with a score val based on prof bonuses plus the attr.score
+        // then sort that new list alphabetically
+        const x = characterModel.attributes.map((attr) => {
+            // console.log(attr.skills)
+            const s = attr.skills.map((skill) => {
+                return {
+                    ...skill,
+                    score: attr.score
+                }
+            })
+            return s
         })
+        console.log(x)
+        // const x = characterModel.skills.map((skill) => {
+        //     return {
+        //         ...skill,
+        //         score: characterModel.
+        //     }
+        // })
     }
 
     return (
@@ -309,9 +350,37 @@ const Character = () => {
                             <h2 className="text-base font-bold mb-4 mt-4">Skills</h2>
                             <div>
                                 {/* this will be a for loop on the skill rendering */}
+                                {/* first checkbox in the handleclick event also ENABLE/disable the 2nd checkbox */}
+                                {/* or actually better to enable 2nd checkbox if proficient prop true */}
+                                {/* {createSkills()} */}
+                                {/* need dyanmic state has to be on charactermodel obj cannot be generated once at runtime include disabled */}
+                                {
+                                    characterModel.skills.map((skill) => {
+                                        const attr = characterModel.attributes.find(element => element.name === skill.id);
+                                        const skl = characterModel.skills.find(element => element.name === skill.name);
+                                        let proficiencyBonus = 0;
+                                        // problme this is its staticlly geanerated
+                                        if (skill.proficient) {
+                                            proficiencyBonus += Math.ceil(1+(characterModel.level / 4));
+                                        }
+                                        if (skill.doubleproficient) {
+                                            proficiencyBonus += Math.ceil(1+(characterModel.level / 4));
+                                        }
+                                        return(
+                                            <div key={skill.name} className="mb-2">
+                                                <label>
+                                                    <input type="checkbox" className="mr-4 rounded-sm text-sm" onChange={handleSkillChange(skill.name)} />
+                                                    <input type="checkbox" className="mr-4 rounded-sm text-sm" onChange={handleSkillDPChange(skill.name)} />
+                                                </label>
+                                                <span className="mr-4 text-sm">{skill.name}</span>
+                                                <span className="mr-4">{skl.proficient ? skl.doubleproficient ? Math.floor((attr.score - 10) / 2) + 2*Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
+                                                <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                            </div>
+                                        );
+                                    })
+                                }
                                 <div className="mb-2">
                                     <label>
-                                        {/* first checkbox in the handleclick event also ENABLE/disable the 2nd checkbox */}
                                         <input type="checkbox" className="mr-4 rounded-sm text-sm" />
                                         <input type="checkbox" className="mr-4 rounded-sm text-sm text-gray-400" disabled={true} />
                                     </label>
