@@ -69,5 +69,8 @@ export const Default5eChar = {
         {name: "Sleight of Hand (Dex)", proficient: false, doubleproficient: false, id: "Dex"},
         {name: "Stealth (Dex)", proficient: false, doubleproficient: false, id: "Dex"},
         {name: "Survival (Wis)", proficient: false, doubleproficient: false, id: "Wis"},
+    ],
+    attacks: [
+        {name: "", attbonus: 0, damage: "", typenotes: "", id: 0}
     ]
 }

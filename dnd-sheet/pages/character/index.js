@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import { rollDice } from '../../util/roll'
 import { CharacterModel, Default5eChar } from '../../util/characterModel'
@@ -118,6 +118,33 @@ const Character = () => {
         const character = getCharacter(id);
         setCharacterModel(character);
         alert(`Character ${id} loaded!`);
+    }
+
+    // triple func currying...
+    const handleAttChange = id => prop => (e) => {
+        console.log(id)
+        console.log(prop)
+        console.log(e.target.value)
+    }
+
+    const handleRemoveAtt = id => (e) => {
+        const attacksCopy = [...characterModel.attacks];
+        attacksCopy.splice(id, 1);
+        setCharacterModel(model => ({
+            ...characterModel,
+            attacks: attacksCopy
+        }))
+    }
+
+    const handleAddAtt = () => {
+        const attacksCopy = [...characterModel.attacks];
+        const att = {name: "", attbonus: 0, damage: "", typenotes: ""};
+        att["id"] = characterModel.attacks.length;
+        attacksCopy.push(att);
+        setCharacterModel(model => ({
+            ...characterModel,
+            attacks: attacksCopy
+        }))
     }
 
     return (
@@ -353,20 +380,44 @@ const Character = () => {
                             <div className="grid grid-cols-6 gap-2">
                                 <p className="font-bold">Name</p>
                                 <p className="font-bold">Att Bonus</p>
-                                <p className="font-bold">Damage</p>
+                                <p className="text-xs"><strong className="text-base">Damage</strong> i.e 1d20+1</p>
                                 <p className="font-bold">Type/Notes</p>
                                 <p className="font-bold">Roll</p>
                                 <p></p>
 
-                                {/* should be dynamically generated */}
-                                <input className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                {characterModel.attacks.map((att) => {
+                                    if (att.id === 0) {
+                                        return(
+                                            <React.Fragment key={att.id}>
+                                            <input onChange={handleAttChange(att.id)("name")} value={att.name} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                            <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
+                                            <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                            <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                            <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                            <span/>
+                                        </React.Fragment>
+                                        );
+                                    }
+                                    return(
+                                        <React.Fragment key={att.id}>
+                                            <input onChange={handleAttChange(att.id)("name")} value={att.name} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                            <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
+                                            <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                            <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                            <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                            <button onClick={handleRemoveAtt(att.id)} className="border rounded border-gray-400">Delete</button>
+                                        </React.Fragment>
+                                    );
+                                })}
+
+                                {/* <input className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                 <input type="number" className="text-xs px-2 py-1" min={-10} max={10} />
                                 <input pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                 <input className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                 <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                <span />
+                                <span /> */}
                             </div>
-                            <button className="rounded-md border border-solid border-gray-600 p-1 mt-2">New att</button>
+                            <button onClick={handleAddAtt} className="rounded-md border border-solid border-gray-600 p-1 mt-2">New att</button>
                         </div>
 
                         <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-2">
