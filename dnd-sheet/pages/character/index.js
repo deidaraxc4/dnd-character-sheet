@@ -122,17 +122,22 @@ const Character = () => {
 
     // triple func currying...
     const handleAttChange = id => prop => (e) => {
-        console.log(id)
-        console.log(prop)
-        console.log(e.target.value)
+        const attCopy = {...characterModel.attacks[id]};
+        attCopy[prop] = e.target.value;
+        const attacksCopy = [...characterModel.attacks];
+        attacksCopy[id] = attCopy;
+        setCharacterModel(model => ({
+            ...characterModel,
+            attacks: attacksCopy
+        }))
     }
 
     const handleRemoveAtt = id => (e) => {
         const attacksCopy = [...characterModel.attacks];
-        attacksCopy.splice(id, 1);
+        const res = attacksCopy.filter(element => element.id != id);
         setCharacterModel(model => ({
             ...characterModel,
-            attacks: attacksCopy
+            attacks: res
         }))
     }
 
@@ -389,13 +394,13 @@ const Character = () => {
                                     if (att.id === 0) {
                                         return(
                                             <React.Fragment key={att.id}>
-                                            <input onChange={handleAttChange(att.id)("name")} value={att.name} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                            <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
-                                            <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                            <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                            <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                            <span/>
-                                        </React.Fragment>
+                                                <input onChange={handleAttChange(att.id)("name")} value={att.name} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                                <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
+                                                <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                                <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
+                                                <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                                <span/>
+                                            </React.Fragment>
                                         );
                                     }
                                     return(
@@ -409,13 +414,6 @@ const Character = () => {
                                         </React.Fragment>
                                     );
                                 })}
-
-                                {/* <input className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                <input type="number" className="text-xs px-2 py-1" min={-10} max={10} />
-                                <input pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                <input className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
-                                <span /> */}
                             </div>
                             <button onClick={handleAddAtt} className="rounded-md border border-solid border-gray-600 p-1 mt-2">New att</button>
                         </div>
