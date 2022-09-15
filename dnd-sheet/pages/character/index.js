@@ -6,6 +6,7 @@ import socketIOClient from 'socket.io-client'
 import { rollDice } from '../../util/roll'
 import { CharacterModel, Default5eChar } from '../../util/characterModel'
 import { getCharacter, getCharacterNames, saveCharacter } from '../../util/storage'
+import Dice from 'dice-notation-js';
 
 const Character = () => {
     const [socket, setSocket] = useState(null);
@@ -150,6 +151,18 @@ const Character = () => {
             ...characterModel,
             attacks: attacksCopy
         }))
+    }
+
+    const handleWeaponRoll = () => {
+        console.log(Dice("1d20"));
+    }
+
+    const handeSkillRoll = () => {
+        console.log(Dice("1d20"));
+    }
+
+    const handleAttributeRoll = () => {
+        console.log(Dice("1d20"));
     }
 
     return (
@@ -398,7 +411,7 @@ const Character = () => {
                                                 <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
                                                 <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                                 <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                                <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                                <input type="image" onClick={handleWeaponRoll} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                                 <span/>
                                             </React.Fragment>
                                         );
@@ -409,7 +422,7 @@ const Character = () => {
                                             <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
                                             <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                             <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                            <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                            <input type="image" onClick={handleWeaponRoll} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                             <button onClick={handleRemoveAtt(att.id)} className="border rounded border-gray-400">Delete</button>
                                         </React.Fragment>
                                     );
