@@ -145,7 +145,7 @@ const Character = () => {
     const handleAddAtt = () => {
         const attacksCopy = [...characterModel.attacks];
         const att = {name: "", attbonus: 0, damage: "", typenotes: ""};
-        att["id"] = characterModel.attacks.length;
+        att["id"] = characterModel.attacks[characterModel.attacks.length-1]["id"] + 1;
         attacksCopy.push(att);
         setCharacterModel(model => ({
             ...characterModel,
