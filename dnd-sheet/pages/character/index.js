@@ -123,10 +123,11 @@ const Character = () => {
 
     // triple func currying...
     const handleAttChange = id => prop => (e) => {
-        const attCopy = {...characterModel.attacks[id]};
+        const index = characterModel.attacks.findIndex(element => element.id === id)
+        const attCopy = {...characterModel.attacks[index]};
         attCopy[prop] = e.target.value;
         const attacksCopy = [...characterModel.attacks];
-        attacksCopy[id] = attCopy;
+        attacksCopy[index] = attCopy;
         setCharacterModel(model => ({
             ...characterModel,
             attacks: attacksCopy
@@ -153,16 +154,29 @@ const Character = () => {
         }))
     }
 
-    const handleWeaponRoll = () => {
-        console.log(Dice("1d20"));
+    const handleWeaponRoll = attbonus => dmg => () => {
+        try {
+            const attNotation = attbonus ? `1d20+${attbonus}` : "1d20";
+            const attRoll = Dice.detailed(attNotation);
+            console.log(attRoll)
+            const dmgRoll = Dice.detailed(dmg);
+            console.log(dmgRoll)
+        } catch(err) {
+            console.debug(err)
+            alert(`Invalid Damage Input: ${dmg}`)
+        }
     }
 
-    const handeSkillRoll = () => {
-        console.log(Dice("1d20"));
+    const handeSkillCheck = id => () => {
+        const modifier = document.getElementById(id).innerText;
+        const diceNotation = Number(modifier) ? `1d20+${modifier}` : "1d20";
+        console.log(Dice.detailed(diceNotation))
     }
 
-    const handleAttributeRoll = () => {
-        console.log(Dice("1d20"));
+    const handleSkillSave = id => () => {
+        const modifier = document.getElementById(id).innerText;
+        const diceNotation = Number(modifier) ? `1d20+${modifier}` : "1d20";
+        console.log(Dice.detailed(diceNotation))
     }
 
     return (
@@ -363,8 +377,8 @@ const Character = () => {
                                             <span className="mr-4 font-bold">{Math.floor((attr.score - 10) / 2)}</span>
                                             <input type="checkbox" value={attr.proficient} onChange={handleAttrProficient(attr.name)} className="mr-4 rounded-sm" />
                                             <label className="mr-4 text-sm font-bold">Save</label>
-                                            <span className="mr-4">{attr.proficient ? Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
-                                            <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                            <span id={`${attr.name}-skill`} className="mr-4">{attr.proficient ? Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
+                                            <input onClick={handleSkillSave(`${attr.name}-skill`)} type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                         </div>
                                     );
                                 })}
@@ -382,8 +396,8 @@ const Character = () => {
                                                     <input type="checkbox" className="mr-4 rounded-sm text-sm" onChange={handleSkillDPChange(skill.name)} disabled={!skl.proficient} />
                                                 </label>
                                                 <span className="mr-4 text-sm">{skill.name}</span>
-                                                <span className="mr-4">{skl.proficient ? skl.doubleproficient ? Math.floor((attr.score - 10) / 2) + 2*Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
-                                                <input type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                                <span id={`${skl.name}-skill`} className="mr-4">{skl.proficient ? skl.doubleproficient ? Math.floor((attr.score - 10) / 2) + 2*Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
+                                                <input onClick={handeSkillCheck(`${skl.name}-skill`)} type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                             </div>
                                         );
                                     })
@@ -411,7 +425,7 @@ const Character = () => {
                                                 <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
                                                 <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                                 <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                                <input type="image" onClick={handleWeaponRoll} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                                <input type="image" onClick={handleWeaponRoll(att.attbonus)(att.damage)} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                                 <span/>
                                             </React.Fragment>
                                         );
@@ -422,7 +436,7 @@ const Character = () => {
                                             <input onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
                                             <input onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                             <input onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                            <input type="image" onClick={handleWeaponRoll} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
+                                            <input type="image" onClick={handleWeaponRoll(att.attbonus)(att.damage)} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
                                             <button onClick={handleRemoveAtt(att.id)} className="border rounded border-gray-400">Delete</button>
                                         </React.Fragment>
                                     );
