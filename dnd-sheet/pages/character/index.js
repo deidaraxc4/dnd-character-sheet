@@ -7,6 +7,7 @@ import { rollDice } from '../../util/roll'
 import { CharacterModel, Default5eChar } from '../../util/characterModel'
 import { getCharacter, getCharacterNames, saveCharacter } from '../../util/storage'
 import Dice from 'dice-notation-js';
+import ContentEditable from 'react-contenteditable'
 
 const Character = () => {
     const [socket, setSocket] = useState(null);
@@ -177,6 +178,14 @@ const Character = () => {
         const modifier = document.getElementById(id).innerText;
         const diceNotation = Number(modifier) ? `1d20+${modifier}` : "1d20";
         console.log(Dice.detailed(diceNotation))
+    }
+
+    const handleFeature = (e) => {
+        const val = e.target.value;
+        setCharacterModel({
+            ...characterModel,
+            features: val
+        })
     }
 
     return (
@@ -366,7 +375,7 @@ const Character = () => {
                             </div>
                         </div>
 
-                        <div id="skillsAttributes" className="col-span-1 border-solid rounded-md border-gray-600 border p-2">
+                        <div id="skillsAttributes" className="col-span-1 border-solid rounded-md border-gray-600 border p-4">
                             <h2 className="text-base font-bold mb-4">Attributes</h2>
                             <div>
                                 {characterModel.attributes.map((attr) => {
@@ -407,7 +416,7 @@ const Character = () => {
 
                         {/* dice roll regex https://regexr.com/3d70r */}
                         {/* https://www.npmjs.com/package/dice-notation-js */}
-                        <div id="weaponAttacks" className="col-span-2 col-start-2 border-solid rounded-md border-gray-600 border p-2">
+                        <div id="weaponAttacks" className="col-span-2 col-start-2 border-solid rounded-md border-gray-600 border p-4">
                             <h2 className="text-base font-bold mb-4">Weapons &amp; Attacks</h2>
                             <div className="grid grid-cols-6 gap-2">
                                 <p className="font-bold">Name</p>
@@ -442,7 +451,13 @@ const Character = () => {
                                     );
                                 })}
                             </div>
-                            <button onClick={handleAddAtt} className="rounded-md border border-solid border-gray-600 p-1 mt-2">New att</button>
+                            <button onClick={handleAddAtt} className="rounded-md border border-solid border-gray-600 p-1 mt-2 mb-4">New att</button>
+                            <h2 className="text-base font-bold mb-4">Features &amp; Traits</h2>
+                            <div>
+                                {/* <span contentEditable onInput={handleFeature} className="w-full h-28 block rounded border border-dotted border-blue-500"></span> */}
+                                <ContentEditable onChange={handleFeature} html={characterModel.features} className="w-full h-28 block rounded border border-dotted border-blue-500"></ContentEditable>
+                            </div>
+                            
                         </div>
 
                         <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-2">

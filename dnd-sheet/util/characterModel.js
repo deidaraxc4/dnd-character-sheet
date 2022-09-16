@@ -72,5 +72,6 @@ export const Default5eChar = {
     ],
     attacks: [
         {name: "", attbonus: 0, damage: "", typenotes: "", id: 0}
-    ]
+    ],
+    features: ""
 }
