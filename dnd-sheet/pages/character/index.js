@@ -5,14 +5,16 @@ import React, { useEffect, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import { rollDice } from '../../util/roll'
 import { CharacterModel, Default5eChar } from '../../util/characterModel'
-import { getCharacter, getCharacterNames, saveCharacter } from '../../util/storage'
+import { getCharacter, getCharacterNames, saveCharacter } from '../../util/storage';
+import { sendMessage } from '../../util/discord';
 import Dice from 'dice-notation-js';
-import ContentEditable from 'react-contenteditable'
+import ContentEditable from 'react-contenteditable';
 
 const Character = () => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [characterModel, setCharacterModel] = useState(new CharacterModel(Default5eChar));
+    const [discordHook, setDiscordHook] = useState("");
     const [listsaves, setListsaves] = useState([]);
 
     // useEffect(() => {
@@ -188,6 +190,18 @@ const Character = () => {
         })
     }
 
+    const handleLogin = () => {
+        const val = document.getElementById("discordToken").value;
+        if(val) {
+            alert("Discord token saved!");
+            setDiscordHook(val);
+        } else {
+            alert("Empty token")
+        }
+    }
+
+    // sendMessage("https://discord.com/api/webhooks/1018353179261411438/GTOG7948fQuQJvz_kmMdMyB7FOVIzTgUESBkMqCmrCGemH60E36GaGPCZ6V8n54hWxoi", `username used *longsword*\nAttack Roll: \`1d20+2\` Roll: \`[6]\` Result \`8\`\nDamage Roll: \`2d4+2\` Roll \`[1,3]\` Result \`6\``)
+
     return (
         <div className="container mx-auto mt-4 max-w-7xl">
             <Head>
@@ -202,6 +216,7 @@ const Character = () => {
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="loginModal">Login</button>
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2"><a href="./">Home</a></button>
             </div>
+            {JSON.stringify(discordHook)}
             {JSON.stringify(characterModel)}
 
             <div id="loginModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
@@ -214,11 +229,20 @@ const Character = () => {
                         </div>
                         <div className="p-6 space-y-6">
                             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                Discord
+                                Discord Integration
                             </p>
+                            <div className="relative">
+                                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <svg width={50} height={50}>
+                                        <image width={25} height={50} xlinkHref="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62594d3a27620a3b5c414341_2d20a45d79110dc5bf947137e9d99b66.svg" />
+                                    </svg>
+                                </div>
+                                <input autoComplete="off" type="text" id="discordToken" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Discord token" />
+                            </div>
                         </div>
-                        <div className="flex flex-row-reverse items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                        <div className="flex flex-row-reverse items-center p-6 rounded-b border-t border-gray-200 dark:border-gray-600">
                             <button data-modal-toggle="loginModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
+                            <button onClick={handleLogin} type="button" className="mr-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                         </div>
                     </div>
                 </div>
