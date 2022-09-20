@@ -179,7 +179,32 @@ const Character = () => {
     const handleSkillSave = id => () => {
         const modifier = document.getElementById(id).innerText;
         const diceNotation = Number(modifier) ? `1d20+${modifier}` : "1d20";
-        console.log(Dice.detailed(diceNotation))
+        var res = Dice.detailed(diceNotation);
+        let type;
+        switch (id) {
+            case "Str-skill":
+                type = "Strength"
+                break;
+            case "Dex-skill":
+                type = "Dexterity"
+                break;
+            case "Con-skill":
+                type = "Constitution"
+                break;
+            case "Int-skill":
+                type = "Intelligence"
+                break;
+            case "Wis-skill":
+                type = "Wisdom"
+                break;
+            case "Cha-skill":
+                type = "Charisma"
+                break;
+                    
+        }
+        console.log(res)
+        const msg = `${characterModel.name} made a ${type} save! Request: \`${res.number}d${res.type}${res.modifier ? res.modifier > 0 ? `+${res.modifier}` : `${res.modifier}` : ""}\` Roll: \`${JSON.stringify(res.rolls)}\` Result: \`${res.result}\``;
+        sendMessage(discordHook, msg);
     }
 
     const handleFeature = (e) => {
