@@ -173,7 +173,11 @@ const Character = () => {
     const handeSkillCheck = id => () => {
         const modifier = document.getElementById(id).innerText;
         const diceNotation = Number(modifier) ? `1d20+${modifier}` : "1d20";
-        console.log(Dice.detailed(diceNotation))
+        var res = Dice.detailed(diceNotation);
+        const skill = id.split("-")[0];
+        console.log(res);
+        const msg = `**${characterModel.name}** made a ${skill} skill check! Request: \`${res.number}d${res.type}${res.modifier ? res.modifier > 0 ? `+${res.modifier}` : `${res.modifier}` : ""}\` Roll: \`${JSON.stringify(res.rolls)}\` Result: \`${res.result}\``;
+        sendMessage(discordHook, msg);
     }
 
     const handleSkillSave = id => () => {
@@ -202,8 +206,8 @@ const Character = () => {
                 break;
                     
         }
-        console.log(res)
-        const msg = `${characterModel.name} made a ${type} save! Request: \`${res.number}d${res.type}${res.modifier ? res.modifier > 0 ? `+${res.modifier}` : `${res.modifier}` : ""}\` Roll: \`${JSON.stringify(res.rolls)}\` Result: \`${res.result}\``;
+        console.log(res);
+        const msg = `**${characterModel.name}** made a ${type} save! Request: \`${res.number}d${res.type}${res.modifier ? res.modifier > 0 ? `+${res.modifier}` : `${res.modifier}` : ""}\` Roll: \`${JSON.stringify(res.rolls)}\` Result: \`${res.result}\``;
         sendMessage(discordHook, msg);
     }
 
