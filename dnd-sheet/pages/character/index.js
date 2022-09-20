@@ -190,6 +190,54 @@ const Character = () => {
         })
     }
 
+    const handleOtherProf = (e) => {
+        const val = e.target.value;
+        setCharacterModel({
+            ...characterModel,
+            otherprofs: val
+        })
+    }
+
+    const handleEquipment = (e) => {
+        const val = e.target.value;
+        setCharacterModel({
+            ...characterModel,
+            equipment: val
+        })
+    }
+
+    const handleCoin = coin => (e) => {
+        const val = e.target.value;
+        switch(coin) {
+            case "CP":
+                setCharacterModel({
+                    ...characterModel,
+                    cp: val
+                })
+                break;
+            case "SP":
+                setCharacterModel({
+                    ...characterModel,
+                    sp: val
+                })
+                break;
+            case "GP":
+                setCharacterModel({
+                    ...characterModel,
+                    gp: val
+                })
+                break;
+            case "PP":
+                setCharacterModel({
+                    ...characterModel,
+                    pp: val
+                })
+                break;
+            default:
+                break;
+        }
+    }
+
     const handleLogin = () => {
         const val = document.getElementById("discordToken").value;
         if(val) {
@@ -400,7 +448,7 @@ const Character = () => {
                         </div>
 
                         <div id="skillsAttributes" className="col-span-1 border-solid rounded-md border-gray-600 border p-4">
-                            <h2 className="text-base font-bold mb-4">Attributes</h2>
+                            <h2 className="text-xl font-bold mb-4">Attributes</h2>
                             <div>
                                 {characterModel.attributes.map((attr) => {
                                     return(
@@ -416,7 +464,7 @@ const Character = () => {
                                     );
                                 })}
                             </div>
-                            <h2 className="text-base font-bold mb-4 mt-4">Skills</h2>
+                            <h2 className="text-xl font-bold mb-4 mt-4">Skills</h2>
                             <div>
                                 {
                                     characterModel.skills.map((skill) => {
@@ -441,7 +489,7 @@ const Character = () => {
                         {/* dice roll regex https://regexr.com/3d70r */}
                         {/* https://www.npmjs.com/package/dice-notation-js */}
                         <div id="weaponAttacks" className="col-span-2 col-start-2 border-solid rounded-md border-gray-600 border p-4">
-                            <h2 className="text-base font-bold mb-4">Weapons &amp; Attacks</h2>
+                            <h2 className="text-xl font-bold mb-4">Weapons &amp; Attacks</h2>
                             <div className="grid grid-cols-6 gap-2">
                                 <p className="font-bold">Name</p>
                                 <p className="font-bold">Att Bonus</p>
@@ -476,12 +524,52 @@ const Character = () => {
                                 })}
                             </div>
                             <button onClick={handleAddAtt} className="rounded-md border border-solid border-gray-600 p-1 mt-2 mb-4">New att</button>
-                            <h2 className="text-base font-bold mb-4">Features &amp; Traits</h2>
-                            <div>
-                                {/* <span contentEditable onInput={handleFeature} className="w-full h-28 block rounded border border-dotted border-blue-500"></span> */}
-                                <ContentEditable onChange={handleFeature} html={characterModel.features} className="w-full h-28 block rounded border border-dotted border-blue-500"></ContentEditable>
+                            <h2 className="text-xl font-bold mb-4">Features &amp; Traits</h2>
+                            <div className="h-28">
+                                <ContentEditable onChange={handleFeature} html={characterModel.features} className="w-full block min-h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                             </div>
-                            
+                            <h2 className="text-xl font-bold mb-4">Other Proficiencies</h2>
+                            <div className="h-28">
+                                <ContentEditable onChange={handleOtherProf} html={characterModel.otherprofs} className="w-full block min-h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            </div>
+                            <h2 className="text-xl font-bold mb-4">Equipment</h2>
+                            <div className="h-28">
+                                <ContentEditable onChange={handleEquipment} html={characterModel.equipment} className="w-full block min-h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            </div>
+                            <div className="flex flex-row items-center mt-4">
+                                <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                    <dt>
+                                        <label className="mb-2 text-sm font-medium text-gray-900">CP</label>
+                                    </dt>
+                                    <dd className="ml-8">
+                                        <ContentEditable onChange={handleCoin("CP")} html={characterModel.cp} className="rounded border border-dotted border-gray-600 w-12 inline-block" />
+                                    </dd>
+                                </dl>
+                                <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                    <dt>
+                                        <label className="mb-2 text-sm font-medium text-gray-900">SP</label>
+                                    </dt>
+                                    <dd className="ml-8">
+                                        <ContentEditable onChange={handleCoin("SP")} html={characterModel.sp} className="rounded border border-dotted border-gray-600 w-12" />
+                                    </dd>
+                                </dl>
+                                <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                    <dt>
+                                        <label className="mb-2 text-sm font-medium text-gray-900">GP</label>
+                                    </dt>
+                                    <dd className="ml-8">
+                                        <ContentEditable onChange={handleCoin("GP")} html={characterModel.gp} className="rounded border border-dotted border-gray-600 w-12" />
+                                    </dd>
+                                </dl>
+                                <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                    <dt>
+                                        <label className="mb-2 text-sm font-medium text-gray-900">PP</label>
+                                    </dt>
+                                    <dd className="ml-8">
+                                        <ContentEditable onChange={handleCoin("PP")} html={characterModel.pp} className="rounded border border-dotted border-gray-600 w-12" />
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
 
                         <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-2">
