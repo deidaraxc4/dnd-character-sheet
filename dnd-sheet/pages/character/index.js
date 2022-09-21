@@ -293,8 +293,8 @@ const Character = () => {
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="loginModal">Login</button>
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2"><a href="./">Home</a></button>
             </div>
-            {JSON.stringify(discordHook)}
-            {JSON.stringify(characterModel)}
+            {/* {JSON.stringify(discordHook)}
+            {JSON.stringify(characterModel)} */}
 
             <div id="loginModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                 <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -599,8 +599,105 @@ const Character = () => {
                             </div>
                         </div>
 
-                        <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-2">
-                            <p>extra</p>
+                        <div id="spells" className="col-span-3 border-solid rounded-md border-gray-600 border p-4 mb-7">
+                            <h2 className="text-xl font-bold mb-4">Spells</h2>
+                            <div className="grid grid-cols-3 gap-2 mt-4">
+                                <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                    <dt>
+                                        <label className="mb-2 text-sm font-medium text-gray-900">Spell Ability</label>
+                                    </dt>
+                                    <dd className="ml-8">
+                                        <ContentEditable html={characterModel.spellability} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
+                                    </dd>
+                                </dl>
+                                <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                    <dt>
+                                        <label className="mb-2 text-sm font-medium text-gray-900">Spell Save DC</label>
+                                    </dt>
+                                    <dd className="ml-8">
+                                        <ContentEditable html={characterModel.spelldc} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
+                                    </dd>
+                                </dl>
+                                <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
+                                    <dt>
+                                        <label className="mb-2 text-sm font-medium text-gray-900">Spell Attack Bonus</label>
+                                    </dt>
+                                    <dd className="ml-8">
+                                        <ContentEditable html={characterModel.spellattbonus} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
+                                    </dd>
+                                </dl>
+                            </div>
+                            <h2 className="text-xl font-bold mb-4">Spells Slots</h2>
+                            <div className="flex justify-start flex-wrap flex-row items-center">
+                                <div className="flex flex-row justify-start items-center mb-4 mt-2">
+                                    <dt>1st</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                    <dt>2nd</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                </div>
+
+                                <div className="flex flex-row justify-start items-center mb-4 mt-2">
+                                    <dt>3rd</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                    <dt>4th</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                </div>
+
+                                <div className="flex flex-row justify-start items-center mb-4 mt-2">
+                                    <dt>5th</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                    <dt>6th</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                </div>
+
+                                <div className="flex flex-row justify-start items-center mb-4 mt-2">
+                                    <dt>7th</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                    <dt>8th</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                </div>
+
+                                <div className="flex flex-row justify-start items-center mb-4 mt-2">
+                                    <dt>9th</dt>
+                                    <dd className="ml-8 mr-4">
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <strong>/</strong>
+                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                    </dd>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

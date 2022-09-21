@@ -79,5 +79,8 @@ export const Default5eChar = {
     cp: "0",
     sp: "0",
     gp: "0",
-    pp: "0"
+    pp: "0",
+    spellability: "",
+    spelldc: "",
+    spellattbonus: ""
 }
