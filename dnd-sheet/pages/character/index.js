@@ -704,13 +704,58 @@ const Character = () => {
                 </div>
 
                 <div className="mt-4" id="notes" role="tabpanel" aria-labelledby='notes-tab'>
-                    <div className="grid grid-cols-3 gap-x-8 gap-y-8">
-                        <p>notes stuff</p>
-                        <p>notes stuff</p>
-                        <p>notes stuff</p>
-                        <p>notes stuff</p>
+                    <div className="grid grid-cols-3 gap-x-8 gap-y-8 mb-8">
+                        <div>
+                            <h2 className="text-xl font-bold mb-4">NPCs</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold mb-4">Factions</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold mb-4">Party Members</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold mb-4">Personality</h2>
+                            
+                            <h2 className="text-xl font-bold mb-4">Traits</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+
+                            <h2 className="text-xl font-bold mb-4">Ideals</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+
+                            <h2 className="text-xl font-bold mb-4">Bonds</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+
+                            <h2 className="text-xl font-bold mb-4">Flaws</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+
+                            <h2 className="text-xl font-bold mb-4">Apperance</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+
+                            <h2 className="text-xl font-bold mb-4">Languages</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold mb-4">Character Notes</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold mb-4">Campaign Notes</h2>
+                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                        </div>
                     </div>
                 </div>
+
+                <footer className="flex items-baseline my-4 border-t border-gray-500 border-solid p-2">
+                    <h4 className="text-lg font-bold basis-3/6 grow shrink">5e Character Sheet App</h4>
+                    <ul className="basis-3/6 grow shrink">
+                        <li>Created by <a className="text-blue-500 hover:underline" href="https://github.com/deidaraxc4">deidaraxc4</a></li>
+                        <li><a className="text-blue-500 hover:underline" href="https://github.com/deidaraxc4/dnd-character-sheet">Github</a></li>
+                    </ul>
+                </footer>
             </div>
 
             <script src="https://unpkg.com/flowbite@1.5.2/dist/flowbite.js"></script>
