@@ -269,6 +269,80 @@ const Character = () => {
         }
     }
 
+    const handleNotes = note => (e) => {
+        const val = e.target.value;
+        switch(note) {
+            case "npcs":
+                setCharacterModel({
+                    ...characterModel,
+                    npcs: val
+                })
+                break;
+            case "factions":
+                setCharacterModel({
+                    ...characterModel,
+                    factions: val
+                })
+                break;
+            case "partymembers":
+                setCharacterModel({
+                    ...characterModel,
+                    partymembers: val
+                })
+                break;
+            case "charnotes":
+                setCharacterModel({
+                    ...characterModel,
+                    charnotes: val
+                })
+                break;
+            case "campaignnotes":
+                setCharacterModel({
+                    ...characterModel,
+                    campaignnotes: val
+                })
+                break;
+            case "traits":
+                setCharacterModel({
+                    ...characterModel,
+                    traits: val
+                })
+                break;
+            case "ideals":
+                setCharacterModel({
+                    ...characterModel,
+                    ideals: val
+                })
+                break;
+            case "bonds":
+                setCharacterModel({
+                    ...characterModel,
+                    bonds: val
+                })
+                break;
+            case "flaws":
+                setCharacterModel({
+                    ...characterModel,
+                    flaws: val
+                })
+                break;
+            case "apperance":
+                setCharacterModel({
+                    ...characterModel,
+                    apperance: val
+                })
+                break;
+            case "languages":
+                setCharacterModel({
+                    ...characterModel,
+                    languages: val
+                })
+                break;
+            default:
+                break;
+        }
+    }
+
     const handleLogin = () => {
         const val = document.getElementById("discordToken").value;
         if(val) {
@@ -707,44 +781,44 @@ const Character = () => {
                     <div className="grid grid-cols-3 gap-x-8 gap-y-8 mb-8">
                         <div>
                             <h2 className="text-xl font-bold mb-4">NPCs</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("npcs")} html={characterModel.npcs} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Factions</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("factions")} html={characterModel.factions} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Party Members</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("partymembers")} html={characterModel.partymembers} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Personality</h2>
                             
                             <h2 className="text-xl font-bold mb-4">Traits</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("traits")} html={characterModel.traits} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Ideals</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("ideals")} html={characterModel.ideals} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Bonds</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("bonds")} html={characterModel.bonds} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Flaws</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("flaws")} html={characterModel.flaws} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Apperance</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("appearance")} html={characterModel.appearance} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Languages</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("languages")} html={characterModel.languages} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Character Notes</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("charnotes")} html={characterModel.charnotes} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Campaign Notes</h2>
-                            <ContentEditable className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("campaignnotes")} html={characterModel.campaignnotes} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                         </div>
                     </div>
                 </div>

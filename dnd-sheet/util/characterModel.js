@@ -82,5 +82,16 @@ export const Default5eChar = {
     pp: "0",
     spellability: "",
     spelldc: "",
-    spellattbonus: ""
+    spellattbonus: "",
+    npcs: "",
+    factions: "",
+    partymembers: "",
+    traits: "",
+    ideals: "",
+    bonds: "",
+    flaws: "",
+    appearance: "",
+    languages: "",
+    charnotes: "",
+    campaignnotes: ""
 }
