@@ -552,16 +552,16 @@ const Character = () => {
                             </div>
                             <button onClick={handleAddAtt} className="rounded-md border border-solid border-gray-600 p-1 mt-2 mb-4">New att</button>
                             <h2 className="text-xl font-bold mb-4">Features &amp; Traits</h2>
-                            <div className="h-28">
-                                <ContentEditable onChange={handleFeature} html={characterModel.features} className="w-full block min-h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <div className="h-32 min-h-max">
+                                <ContentEditable onChange={handleFeature} html={characterModel.features} className="w-full block overflow-auto h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                             </div>
                             <h2 className="text-xl font-bold mb-4">Other Proficiencies</h2>
-                            <div className="h-28">
-                                <ContentEditable onChange={handleOtherProf} html={characterModel.otherprofs} className="w-full block min-h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <div className="h-32 min-h-max">
+                                <ContentEditable onChange={handleOtherProf} html={characterModel.otherprofs} className="w-full block overflow-auto h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                             </div>
                             <h2 className="text-xl font-bold mb-4">Equipment</h2>
-                            <div className="h-28">
-                                <ContentEditable onChange={handleEquipment} html={characterModel.equipment} className="w-full block min-h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <div className="h-32 min-h-max">
+                                <ContentEditable onChange={handleEquipment} html={characterModel.equipment} className="w-full block overflow-auto h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
                             </div>
                             <div className="flex flex-row items-center mt-4">
                                 <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -704,7 +704,12 @@ const Character = () => {
                 </div>
 
                 <div className="mt-4" id="notes" role="tabpanel" aria-labelledby='notes-tab'>
-                    <p>notes stuff</p>
+                    <div className="grid grid-cols-3 gap-x-8 gap-y-8">
+                        <p>notes stuff</p>
+                        <p>notes stuff</p>
+                        <p>notes stuff</p>
+                        <p>notes stuff</p>
+                    </div>
                 </div>
             </div>
 
