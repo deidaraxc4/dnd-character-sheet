@@ -269,6 +269,140 @@ const Character = () => {
         }
     }
 
+    const handleSlot = slot => (e) => {
+        const val = e.target.value;
+        switch(slot) {
+            case "spellability":
+                setCharacterModel({
+                    ...characterModel,
+                    spellability: val
+                })
+                break;
+            case "spelldc":
+                setCharacterModel({
+                    ...characterModel,
+                    spelldc: val
+                })
+                break;
+            case "spellattbonus":
+                setCharacterModel({
+                    ...characterModel,
+                    spellattbonus: val
+                })
+                break;
+            case "slot1u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot1u: val
+                })
+                break;
+            case "slot1l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot1l: val
+                })
+                break;
+            case "slot2u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot2u: val
+                })
+                break;
+            case "slot2l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot2l: val
+                })
+                break;
+            case "slot3u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot3u: val
+                })
+                break;
+            case "slot3l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot3l: val
+                })
+                break;
+            case "slot4u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot4u: val
+                })
+                break;
+            case "slot4l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot4l: val
+                })
+                break;
+            case "slot5u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot5u: val
+                })
+                break;
+            case "slot5l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot5l: val
+                })
+                break;
+            case "slot6u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot6u: val
+                })
+                break;
+            case "slot6l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot6l: val
+                })
+                break;
+            case "slot7u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot7u: val
+                })
+                break;
+            case "slot7l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot7l: val
+                })
+                break;
+            case "slot8u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot8u: val
+                })
+                break;
+            case "slot8l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot8l: val
+                })
+                break;
+            case "slot9u":
+                setCharacterModel({
+                    ...characterModel,
+                    slot9u: val
+                })
+                break;
+            case "slot9l":
+                setCharacterModel({
+                    ...characterModel,
+                    slot9l: val
+                })
+                break;
+            default:
+                break;
+        }
+    }
+
     const handleNotes = note => (e) => {
         const val = e.target.value;
         switch(note) {
@@ -681,7 +815,7 @@ const Character = () => {
                                         <label className="mb-2 text-sm font-medium text-gray-900">Spell Ability</label>
                                     </dt>
                                     <dd className="ml-8">
-                                        <ContentEditable html={characterModel.spellability} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
+                                        <ContentEditable html={characterModel.spellability} onChange={handleSlot("spellability")} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
                                     </dd>
                                 </dl>
                                 <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -689,7 +823,7 @@ const Character = () => {
                                         <label className="mb-2 text-sm font-medium text-gray-900">Spell Save DC</label>
                                     </dt>
                                     <dd className="ml-8">
-                                        <ContentEditable html={characterModel.spelldc} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
+                                        <ContentEditable html={characterModel.spelldc} onChange={handleSlot("spelldc")} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
                                     </dd>
                                 </dl>
                                 <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -697,7 +831,7 @@ const Character = () => {
                                         <label className="mb-2 text-sm font-medium text-gray-900">Spell Attack Bonus</label>
                                     </dt>
                                     <dd className="ml-8">
-                                        <ContentEditable html={characterModel.spellattbonus} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
+                                        <ContentEditable html={characterModel.spellattbonus} onChange={handleSlot("spellattbonus")} className="rounded border border-dotted border-gray-600 w-24 inline-block" />
                                     </dd>
                                 </dl>
                             </div>
@@ -706,69 +840,69 @@ const Character = () => {
                                 <div className="flex flex-row justify-start items-center mb-4 mt-2">
                                     <dt>1st</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot1u} onChange={handleSlot("slot1u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot1l} onChange={handleSlot("slot1l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                     <dt>2nd</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot2u} onChange={handleSlot("slot2u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot2l} onChange={handleSlot("slot2l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                 </div>
 
                                 <div className="flex flex-row justify-start items-center mb-4 mt-2">
                                     <dt>3rd</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot3u} onChange={handleSlot("slot3u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot3l} onChange={handleSlot("slot3l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                     <dt>4th</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot4u} onChange={handleSlot("slot4u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot4l} onChange={handleSlot("slot4l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                 </div>
 
                                 <div className="flex flex-row justify-start items-center mb-4 mt-2">
                                     <dt>5th</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot5u} onChange={handleSlot("slot5u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot5l} onChange={handleSlot("slot5l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                     <dt>6th</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot6u} onChange={handleSlot("slot6u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot6l} onChange={handleSlot("slot6l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                 </div>
 
                                 <div className="flex flex-row justify-start items-center mb-4 mt-2">
                                     <dt>7th</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot7u} onChange={handleSlot("slot7u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot7l} onChange={handleSlot("slot7l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                     <dt>8th</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot8u} onChange={handleSlot("slot8u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot8l} onChange={handleSlot("slot8l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                 </div>
 
                                 <div className="flex flex-row justify-start items-center mb-4 mt-2">
                                     <dt>9th</dt>
                                     <dd className="ml-8 mr-4">
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot9u} onChange={handleSlot("slot9u")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                         <strong>/</strong>
-                                        <input type="number" max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
+                                        <input type="number" value={characterModel.slot9l} onChange={handleSlot("slot9l")} max={10} min={0} className="text-xs w-12 border-dotted border rounded-md px-2 py-1" />
                                     </dd>
                                 </div>
                             </div>
