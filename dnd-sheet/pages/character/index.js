@@ -733,7 +733,7 @@ const Character = () => {
                                     <label className="mb-2 text-sm font-medium text-gray-900">Inspiration</label>
                                 </dt>
                                 <dd className="ml-8">
-                                    <input type="checkbox" id="dndinspiration" size="2" value={characterModel.inspiration} onChange={handleChange("inspiration")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500" />
+                                    <input type="checkbox" id="dndinspiration" size="2" checked={characterModel.inspiration} onChange={handleChange("inspiration")} className="px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500" />
                                 </dd>
                             </dl>
                             <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
@@ -756,7 +756,7 @@ const Character = () => {
                                             <label className="mr-6 text-sm font-bold">{attr.name}</label>
                                             <input type="number" max={25} min={1} value={attr.score} onChange={handleAttrChange(attr.name)} className="text-xs mr-4 w-12 border-dotted border rounded-md px-2 py-1" />
                                             <span className="mr-4 font-bold">{Math.floor((attr.score - 10) / 2)}</span>
-                                            <input type="checkbox" value={attr.proficient} onChange={handleAttrProficient(attr.name)} className="mr-4 rounded-sm" />
+                                            <input type="checkbox" checked={attr.proficient} onChange={handleAttrProficient(attr.name)} className="mr-4 rounded-sm" />
                                             <label className="mr-4 text-sm font-bold">Save</label>
                                             <span id={`${attr.name}-skill`} className="mr-4">{attr.proficient ? Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
                                             <input onClick={handleSkillSave(`${attr.name}-skill`)} type="image" src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
@@ -773,8 +773,8 @@ const Character = () => {
                                         return(
                                             <div key={skill.name} className="mb-2">
                                                 <label>
-                                                    <input type="checkbox" className="mr-4 rounded-sm text-sm" onChange={handleSkillChange(skill.name)} />
-                                                    <input type="checkbox" className="mr-4 rounded-sm text-sm" onChange={handleSkillDPChange(skill.name)} disabled={!skl.proficient} />
+                                                    <input type="checkbox" checked={skill.proficient} className="mr-4 rounded-sm text-sm" onChange={handleSkillChange(skill.name)} />
+                                                    <input type="checkbox" checked={skill.doubleproficient} className="mr-4 rounded-sm text-sm" onChange={handleSkillDPChange(skill.name)} disabled={!skl.proficient} />
                                                 </label>
                                                 <span className="mr-4 text-sm">{skill.name}</span>
                                                 <span id={`${skl.name}-skill`} className="mr-4">{skl.proficient ? skl.doubleproficient ? Math.floor((attr.score - 10) / 2) + 2*Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2) + Math.ceil(1+(characterModel.level / 4)) : Math.floor((attr.score - 10) / 2)}</span>
