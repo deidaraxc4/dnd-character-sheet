@@ -537,9 +537,11 @@ const Character = () => {
                 alert("Not a valid backup file!")
                 return;
             }
-            setCharacterModel(jsonContent);
-            saveCharacter(characterModel.name, characterModel)
-            alert(`${characterModel.name} file was restored!`)
+            // saveCharacter(jsonContent.name, jsonContent)
+            setCharacterModel(model => ({
+                ...jsonContent
+            }))
+            alert(`${characterModel.name} file was restored! Make sure to save if you want to keep this character`)
         }
         catch (err) {
             console.log("handleRestore err!");
@@ -564,8 +566,8 @@ const Character = () => {
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="restoreModal">Restore</button>
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2"><a href="./">Home</a></button>
             </div>
-            {/* {JSON.stringify(discordHook)}
-            {JSON.stringify(characterModel)} */}
+            {/* {JSON.stringify(discordHook)} */}
+            {/* {JSON.stringify(characterModel)} */}
 
             <div id="backupModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                 <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
