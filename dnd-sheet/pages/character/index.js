@@ -487,23 +487,66 @@ const Character = () => {
         }
     }
 
-    // const handleBackup = async () => {
-    //     const options = {
-    //         types: [
-    //             {
-    //               description: 'Text Files',
-    //               accept: {
-    //                 'text/plain': ['.json'],
-    //               },
-    //             },
-    //           ],
-    //     };
-    //     const contents = JSON.stringify("{foo:\"bar\"}")
-    //     const handle = await window.showSaveFilePicker(options);
-    //     const writable = await handle.createWritable();
-    //     await writable.write(contents);
-    //     await writable.close();
-    // }
+    const handleBackup = async () => {
+        const options = {
+            suggestedName: `${characterModel.name}-backup.json`,
+            types: [
+                {
+                  description: 'JSON',
+                  accept: {
+                    'text/plain': ['.json'],
+                  },
+                },
+              ],
+        };
+        const contents = JSON.stringify(characterModel)
+        try {
+            const handle = await window.showSaveFilePicker(options);
+            const writable = await handle.createWritable();
+            await writable.write(contents);
+            await writable.close();
+        } 
+        catch (err) {
+            console.log("handleBackup err!");
+            console.log(err);
+        }
+    }
+
+    const handleRestore = async () => {
+        const options = {
+            types: [
+                {
+                    description: 'JSON',
+                    accept: {
+                        'text/plain': ['.json'],
+                    },
+                },
+            ],
+        };
+        try {
+            let fileHandle;
+            [fileHandle] = await window.showOpenFilePicker();
+            const file = await fileHandle.getFile();
+            const content = await file.text();
+            // make sure the content is valid for our use case
+            const jsonContent = JSON.parse(content); // could throw syntax err if not a json file...
+            const aKeys = Object.keys(characterModel).sort();
+            const bKeys = Object.keys(jsonContent).sort();
+            if (JSON.stringify(aKeys) != JSON.stringify(bKeys)) {
+                console.log("not a valid JSON file")
+                alert("Not a valid backup file!")
+                return;
+            }
+            setCharacterModel(jsonContent);
+            saveCharacter(characterModel.name, characterModel)
+            alert(`${characterModel.name} file was restored!`)
+        }
+        catch (err) {
+            console.log("handleRestore err!");
+            console.log(err);
+            alert("Something went wrong! Invalid restore file")
+        }
+    }
 
     return (
         <div className="container mx-auto mt-4 max-w-7xl">
@@ -517,14 +560,14 @@ const Character = () => {
                 <button onClick={handleSave} className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2">Save</button>
                 <button onClick={handleLoad} className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="loadModal" id="loadCharacterBtn">Load</button>
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="loginModal">Login</button>
-                {/* <button onClick={handleLoad} className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="backupModal">Backup</button>
-                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="restoreModal">Restore</button> */}
+                <button onClick={handleLoad} className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="backupModal">Backup</button>
+                <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2" data-modal-toggle="restoreModal">Restore</button>
                 <button className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2 mb-2"><a href="./">Home</a></button>
             </div>
             {/* {JSON.stringify(discordHook)}
             {JSON.stringify(characterModel)} */}
 
-            {/* <div id="backupModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+            <div id="backupModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                 <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
@@ -533,14 +576,7 @@ const Character = () => {
                             </h3>
                         </div>
                         <div className="p-6 space-y-6">
-                            <p className="font-light font-sans">Pick character(s) to download.</p>
-                            <ul>
-                                {listsaves.map((save) => {
-                                    return(
-                                        <li key={save} id="backupChoice" className="font-bold">{save}</li>
-                                    )
-                                })}
-                            </ul>
+                            <p className="font-light font-sans">Back up current character <span className="font-medium">{characterModel.name}</span> to a save file.</p>
                         </div>
                         <div className="flex flex-row-reverse items-center p-6 rounded-b border-t border-gray-200 dark:border-gray-600">
                             <button data-modal-toggle="backupModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
@@ -558,15 +594,15 @@ const Character = () => {
                             </h3>
                         </div>
                         <div className="p-6 space-y-6">
-                            <p>foo</p>
+                            <p className="font-light font-sans">Restore a character from a backup file.</p>
                         </div>
                         <div className="flex flex-row-reverse items-center p-6 rounded-b border-t border-gray-200 dark:border-gray-600">
                             <button data-modal-toggle="restoreModal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
-                            <button type="button" className="mr-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Restore</button>
+                            <button onClick={handleRestore} type="button" className="mr-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Restore</button>
                         </div>
                     </div>
                 </div>
-            </div> */}
+            </div>
             <div id="loginModal" tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                 <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
