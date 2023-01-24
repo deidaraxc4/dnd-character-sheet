@@ -839,7 +839,7 @@ const Character = () => {
                                         return(
                                             <React.Fragment key={att.id}>
                                                 <input autoComplete="off" onChange={handleAttChange(att.id)("name")} value={att.name} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                                <input autoComplete="off" onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
+                                                <input autoComplete="off" onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={20} />
                                                 <input autoComplete="off" onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                                 <input autoComplete="off" onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                                 <input autoComplete="off" type="image" onClick={handleWeaponRoll(att.name)(att.attbonus)(att.damage)} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
@@ -850,7 +850,7 @@ const Character = () => {
                                     return(
                                         <React.Fragment key={att.id}>
                                             <input autoComplete="off" onChange={handleAttChange(att.id)("name")} value={att.name} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
-                                            <input autoComplete="off" onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={10} />
+                                            <input autoComplete="off" onChange={handleAttChange(att.id)("attbonus")} value={att.attbonus} type="number" className="text-xs px-2 py-1" min={-10} max={20} />
                                             <input autoComplete="off" onChange={handleAttChange(att.id)("damage")} value={att.damage} pattern="(\d+)?d(\d+)([\+\-]\d+)?" className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                             <input autoComplete="off" onChange={handleAttChange(att.id)("typenotes")} value={att.typenotes} className="text-xs px-2 py-1 border border-solid border-gray-600 rounded-sm" />
                                             <input autoComplete="off" type="image" onClick={handleWeaponRoll(att.name)(att.attbonus)(att.damage)} src="d20-32px.svg" className="mr-4 inline-block object-contain align-middle" height={20} />
