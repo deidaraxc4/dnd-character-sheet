@@ -460,10 +460,10 @@ const Character = () => {
                     flaws: val
                 })
                 break;
-            case "apperance":
+            case "appearance":
                 setCharacterModel({
                     ...characterModel,
-                    apperance: val
+                    appearance: val
                 })
                 break;
             case "languages":
@@ -860,18 +860,16 @@ const Character = () => {
                                 })}
                             </div>
                             <button onClick={handleAddAtt} className="rounded-md border border-solid border-gray-600 p-1 mt-2 mb-4">New att</button>
+
                             <h2 className="text-xl font-bold mb-4">Features &amp; Traits</h2>
-                            <div className="h-32 min-h-max">
-                                <ContentEditable onChange={handleFeature} html={characterModel.features} className="w-full block overflow-auto h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
-                            </div>
+                            <ContentEditable onChange={handleFeature} html={characterModel.features} className="w-full block overflow-auto h-32 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
+                            
                             <h2 className="text-xl font-bold mb-4">Other Proficiencies</h2>
-                            <div className="h-32 min-h-max">
-                                <ContentEditable onChange={handleOtherProf} html={characterModel.otherprofs} className="w-full block overflow-auto h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
-                            </div>
+                            <ContentEditable onChange={handleOtherProf} html={characterModel.otherprofs} className="w-full block overflow-auto h-32 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
+                            
                             <h2 className="text-xl font-bold mb-4">Equipment</h2>
-                            <div className="h-32 min-h-max">
-                                <ContentEditable onChange={handleEquipment} html={characterModel.equipment} className="w-full block overflow-auto h-full rounded border border-dotted border-blue-500 p-1"></ContentEditable>
-                            </div>
+                            <ContentEditable onChange={handleEquipment} html={characterModel.equipment} className="w-full block overflow-auto h-32 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
+                            
                             <div className="flex flex-row items-center mt-4">
                                 <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">
                                     <dt>
@@ -1016,44 +1014,44 @@ const Character = () => {
                     <div className="grid grid-cols-3 gap-x-8 gap-y-8 mb-8">
                         <div>
                             <h2 className="text-xl font-bold mb-4">NPCs</h2>
-                            <ContentEditable onChange={handleNotes("npcs")} html={characterModel.npcs} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("npcs")} html={characterModel.npcs} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Factions</h2>
-                            <ContentEditable onChange={handleNotes("factions")} html={characterModel.factions} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("factions")} html={characterModel.factions} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Party Members</h2>
-                            <ContentEditable onChange={handleNotes("partymembers")} html={characterModel.partymembers} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("partymembers")} html={characterModel.partymembers} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Personality</h2>
                             
                             <h2 className="text-xl font-bold mb-4">Traits</h2>
-                            <ContentEditable onChange={handleNotes("traits")} html={characterModel.traits} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("traits")} html={characterModel.traits} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Ideals</h2>
-                            <ContentEditable onChange={handleNotes("ideals")} html={characterModel.ideals} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("ideals")} html={characterModel.ideals} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Bonds</h2>
-                            <ContentEditable onChange={handleNotes("bonds")} html={characterModel.bonds} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("bonds")} html={characterModel.bonds} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Flaws</h2>
-                            <ContentEditable onChange={handleNotes("flaws")} html={characterModel.flaws} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("flaws")} html={characterModel.flaws} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
 
-                            <h2 className="text-xl font-bold mb-4">Apperance</h2>
-                            <ContentEditable onChange={handleNotes("appearance")} html={characterModel.appearance} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <h2 className="text-xl font-bold mb-4">Appearance</h2>
+                            <ContentEditable onChange={handleNotes("appearance")} html={characterModel.appearance} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
 
                             <h2 className="text-xl font-bold mb-4">Languages</h2>
-                            <ContentEditable onChange={handleNotes("languages")} html={characterModel.languages} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("languages")} html={characterModel.languages} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Character Notes</h2>
-                            <ContentEditable onChange={handleNotes("charnotes")} html={characterModel.charnotes} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("charnotes")} html={characterModel.charnotes} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mb-4">Campaign Notes</h2>
-                            <ContentEditable onChange={handleNotes("campaignnotes")} html={characterModel.campaignnotes} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1"></ContentEditable>
+                            <ContentEditable onChange={handleNotes("campaignnotes")} html={characterModel.campaignnotes} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                         </div>
                     </div>
                 </div>
