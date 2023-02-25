@@ -9,6 +9,7 @@ import { getCharacter, getCharacterNames, saveCharacter } from '../../util/stora
 import { sendMessage } from '../../util/discord';
 import Dice from 'dice-notation-js';
 import ContentEditable from 'react-contenteditable';
+import SpellsCodex from '../../components/SpellsCodex'
 
 const Character = () => {
     const [socket, setSocket] = useState(null);
@@ -669,6 +670,9 @@ const Character = () => {
                     <li className="mr-8" role="presentation">
                         <button className="inline-block p-4 border-solid rounded-t-lg border-blue-700 border-t border-x hover:underline hover:border-blue-700" id="notes-tab" data-tabs-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">Notes, Personality, etc</button>
                     </li>
+                    <li className="mr-8" role="presentation">
+                        <button className="inline-block p-4 border-solid rounded-t-lg border-blue-700 border-t border-x hover:underline hover:border-blue-700" id="spells-tab" data-tabs-target="#spells" type="button" role="tab" aria-controls="notes" aria-selected="false">Spells Codex</button>
+                    </li>
                 </ul>
             </div>
 
@@ -1054,6 +1058,10 @@ const Character = () => {
                             <ContentEditable onChange={handleNotes("campaignnotes")} html={characterModel.campaignnotes} className="w-full block overflow-auto h-24 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                         </div>
                     </div>
+                </div>
+
+                <div className="mt-4" id="notes" role="tabpanel" aria-labelledby='spells-tab'>
+                    <SpellsCodex />
                 </div>
 
                 <footer className="flex items-baseline my-4 border-t border-gray-500 border-solid p-2">
