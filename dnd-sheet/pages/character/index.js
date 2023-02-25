@@ -671,7 +671,7 @@ const Character = () => {
                         <button className="inline-block p-4 border-solid rounded-t-lg border-blue-700 border-t border-x hover:underline hover:border-blue-700" id="notes-tab" data-tabs-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">Notes, Personality, etc</button>
                     </li>
                     <li className="mr-8" role="presentation">
-                        <button className="inline-block p-4 border-solid rounded-t-lg border-blue-700 border-t border-x hover:underline hover:border-blue-700" id="spells-tab" data-tabs-target="#spells" type="button" role="tab" aria-controls="notes" aria-selected="false">Spells Codex</button>
+                        <button className="inline-block p-4 border-solid rounded-t-lg border-blue-700 border-t border-x hover:underline hover:border-blue-700" id="spells-tab" data-tabs-target="#spellcodex" type="button" role="tab" aria-controls="spellcodex" aria-selected="false">Spells Codex</button>
                     </li>
                 </ul>
             </div>
@@ -1060,7 +1060,7 @@ const Character = () => {
                     </div>
                 </div>
 
-                <div className="mt-4" id="notes" role="tabpanel" aria-labelledby='spells-tab'>
+                <div className="mt-4" id="spellcodex" role="tabpanel" aria-labelledby='spells-tab'>
                     <SpellsCodex />
                 </div>
 
