@@ -4,7 +4,8 @@ import SpellCard from './SpellCard';
 
 const SpellsCodex = () => {
     const [searchField, setSearchField] = useState("");
-
+    const [selectedSpell, setSelectedSpell] = useState(spellData[0]);
+    // console.log(selectedSpell)
     const handleChange = (e) => {
         setSearchField(e.target.value);
     };
@@ -37,7 +38,7 @@ const SpellsCodex = () => {
             </div>
 
             <div className="m-2">
-                <SpellCard />
+                <SpellCard spell={selectedSpell} />
             </div>
         </div>
     );
