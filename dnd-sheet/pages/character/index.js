@@ -238,6 +238,14 @@ const Character = () => {
         })
     }
 
+    const handleSpells = (e) => {
+        const val = e.target.value;
+        setCharacterModel({
+            ...characterModel,
+            spells: val
+        })
+    }
+
     const handleCoin = coin => (e) => {
         const val = e.target.value;
         switch(coin) {
@@ -873,6 +881,9 @@ const Character = () => {
                             
                             <h2 className="text-xl font-bold mb-4">Equipment</h2>
                             <ContentEditable onChange={handleEquipment} html={characterModel.equipment} className="w-full block overflow-auto h-32 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
+
+                            <h2 className="text-xl font-bold mb-4">Spells</h2>
+                            <ContentEditable onChange={handleSpells} html={characterModel.spells} className="w-full block overflow-auto h-32 rounded border border-dotted border-blue-500 p-1 resize-y"></ContentEditable>
                             
                             <div className="flex flex-row items-center mt-4">
                                 <dl className="flex flex-row justify-start items-center mb-4 mr-6 mt-2">

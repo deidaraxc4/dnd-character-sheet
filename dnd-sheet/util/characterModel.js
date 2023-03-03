@@ -76,6 +76,7 @@ export const Default5eChar = {
     features: "",
     otherprofs: "",
     equipment: "",
+    spells: "",
     cp: "0",
     sp: "0",
     gp: "0",
